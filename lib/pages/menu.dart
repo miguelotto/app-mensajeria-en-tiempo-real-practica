@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:preguntame/main.dart';
 import 'package:preguntame/pages/newUser.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'sendQuestion.dart';
@@ -8,17 +7,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 void main() => runApp(menu(text: 0));
 
-/* Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  await Supabase.initialize(
-    url: 'https://cmlennssxegtkemyqpda.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtbGVubnNzeGVndGtlbXlxcGRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE1NDg4MDQsImV4cCI6MjAyNzEyNDgwNH0.qY8wkhs-JPlm6Ahwtd-QHBMvvLkzumn5uTIQbkhm2RM',
-  );
-  runApp(const menu());
-} */
-
+// ignore: must_be_immutable, camel_case_types
 class menu extends StatelessWidget {
   int text;
   menu({super.key, required this.text});
@@ -39,8 +28,11 @@ final _stream = Supabase.instance.client
     .from('pregunta')
     .stream(primaryKey: ['id']).order('fecha_envio', ascending: false);
 
+// ignore: must_be_immutable
 class Menu extends StatefulWidget {
+  // ignore: non_constant_identifier_names
   int id_usuario;
+  // ignore: non_constant_identifier_names
   Menu({super.key, required this.id_usuario});
 
   @override
@@ -72,7 +64,7 @@ class _MenuState extends State<Menu> {
                     "¿Necesitas ayuda en algo? \n ¡No dudes en preguntar!",
                     style: TextStyle(
                         color: Colors.green[200],
-                        fontSize: 40,
+                        fontSize: 22,
                         fontFamily: "Minecraft"),
                   ),
                 ),
@@ -108,12 +100,14 @@ class _MenuState extends State<Menu> {
                           backgroundColor: Colors.grey[700],
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.all(16.0)),
-                      child: const Text(
-                        "Hacer\npregunta",
-                        style: TextStyle(
-                            color: Colors.blue,
-                            fontFamily: "Minecraft",
-                            fontSize: 28),
+                      child: const Center(
+                        child: Text(
+                          "Hacer\npregunta",
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontFamily: "Minecraft",
+                              fontSize: 18),
+                        ),
                       ),
                     ),
                   ),
@@ -150,20 +144,21 @@ class _MenuState extends State<Menu> {
               ],
             ),
             Padding(
-              padding:
-                  EdgeInsets.only(top: MediaQuery.of(context).size.height / 17),
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height / 17,
+                  left: MediaQuery.of(context).size.width / 10),
               child: const Text(
                 "Preguntas agregadas recientemente",
                 style: TextStyle(
                   color: Colors.green,
                   fontFamily: "Minecraft",
-                  fontSize: 30,
+                  fontSize: 22,
                 ),
               ),
             ),
             Padding(
               padding:
-                  EdgeInsets.only(top: MediaQuery.of(context).size.height / 20),
+                  EdgeInsets.only(top: MediaQuery.of(context).size.height / 26),
               child: StreamBuilder(
                   stream: _stream,
                   builder: (context, snapshot) {
@@ -179,12 +174,12 @@ class _MenuState extends State<Menu> {
                       width: MediaQuery.of(context).size.width / 1.05,
                       height: MediaQuery.of(context).size.height / 2,
                       child: ListView.builder(
-                          shrinkWrap: true,
+                          //shrinkWrap: true,
                           physics: const AlwaysScrollableScrollPhysics(),
                           itemCount: preguntas.length,
                           itemBuilder: (context, index) {
                             final pregunta = preguntas[index];
-                            final xds;
+                            final double xds;
                             if (pregunta['descripcion'].toString().length >=
                                 286) {
                               xds = pregunta['descripcion'].toString().length -
@@ -214,6 +209,7 @@ class _MenuState extends State<Menu> {
 // ignore: camel_case_types
 class itemlist extends StatelessWidget {
   const itemlist({super.key, required this.pregunta, this.xds});
+  // ignore: prefer_typing_uninitialized_variables
   final xds;
   final Map<String, dynamic> pregunta;
 
@@ -229,16 +225,13 @@ class itemlist extends StatelessWidget {
         }
 
         final usuarios = snapshot.data!;
-        debugPrint(pregunta['id_usuario'].toString());
+
         final usuario = usuarios[pregunta['id_usuario'] - 1];
-        debugPrint(usuarios.toString());
-        debugPrint("-----------------");
-        debugPrint(usuario['nombre_usuario']);
 
         return Padding(
             padding: const EdgeInsets.symmetric(vertical: 0.5),
             child: Container(
-                height: xds,
+                height: 250,
                 // width: MediaQuery.of(context).size.width - 33,
                 margin: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
@@ -255,19 +248,20 @@ class itemlist extends StatelessWidget {
                       fontSize: 22),
                 ), */
                     ListTile(
+                      leading: const Icon(Icons.account_circle_rounded),
                       title: AutoSizeText(
                         usuario['nombre_usuario'],
                         style: const TextStyle(
                             color: Colors.green,
                             fontFamily: "Minecraft",
-                            fontSize: 22),
+                            fontSize: 18),
                       ),
                       subtitle: AutoSizeText(
                         pregunta['titulo'] + "\n" + pregunta['descripcion'],
                         style: const TextStyle(
                             color: Colors.white,
                             fontFamily: "Minecraft",
-                            fontSize: 18),
+                            fontSize: 14),
                       ),
                     ),
                     const Row(

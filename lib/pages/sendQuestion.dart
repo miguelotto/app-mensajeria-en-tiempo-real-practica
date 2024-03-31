@@ -1,5 +1,5 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:preguntame/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() {
@@ -9,8 +9,11 @@ void main() {
 TextEditingController mensaje = TextEditingController();
 TextEditingController titulo = TextEditingController();
 
+// ignore: must_be_immutable
 class Mensaje extends StatelessWidget {
+  // ignore: non_constant_identifier_names
   int id_usuario;
+  // ignore: non_constant_identifier_names
   Mensaje({super.key, required this.id_usuario});
 
   @override
@@ -21,8 +24,11 @@ class Mensaje extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Home extends StatefulWidget {
+  // ignore: non_constant_identifier_names
   int id_usuario;
+  // ignore: non_constant_identifier_names
   Home({super.key, required this.id_usuario});
 
   @override
@@ -62,6 +68,7 @@ class _HomeState extends State<Home> {
                     children: [
                       Expanded(
                         child: TextField(
+                          maxLength: 50,
                           controller: titulo,
                           autocorrect: true,
                           decoration: InputDecoration(
@@ -69,6 +76,7 @@ class _HomeState extends State<Home> {
                                   borderRadius: BorderRadius.circular(20),
                                   borderSide: const BorderSide(
                                       color: Colors.white, width: 2)),
+                              hintMaxLines: 40,
                               hintStyle: const TextStyle(color: Colors.white),
                               hintText: "Coloque el titulo de su mensaje",
                               labelStyle: const TextStyle(
@@ -98,6 +106,7 @@ class _HomeState extends State<Home> {
                     children: [
                       Expanded(
                         child: TextField(
+                          maxLength: 200,
                           controller: mensaje,
                           autocorrect: true,
                           decoration: InputDecoration(
@@ -122,6 +131,7 @@ class _HomeState extends State<Home> {
                       ),
                       IconButton(
                           onPressed: () async {
+                            // ignore: no_leading_underscores_for_local_identifiers
                             final _insercion = Supabase.instance.client;
 
                             final response =
@@ -135,6 +145,7 @@ class _HomeState extends State<Home> {
                             ]);
                             titulo.clear();
                             mensaje.clear();
+                            // ignore: use_build_context_synchronously
                             Navigator.pop(context);
                           },
                           icon: const Icon(

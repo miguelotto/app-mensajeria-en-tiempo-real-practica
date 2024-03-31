@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:preguntame/pages/menu.dart';
 import 'package:preguntame/pages/newUser.dart';
@@ -5,7 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 /* void main() => runApp(const Login()); */
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Supabase.initialize(
@@ -29,10 +30,12 @@ class Login extends StatelessWidget {
   }
 }
 
+// ignore: unused_element
 final _stream = Supabase.instance.client;
 TextEditingController correo = TextEditingController();
 TextEditingController password = TextEditingController();
 
+// ignore: camel_case_types
 class login extends StatefulWidget {
   const login({super.key});
 
@@ -40,118 +43,124 @@ class login extends StatefulWidget {
   State<login> createState() => _loginState();
 }
 
+// ignore: camel_case_types
 class _loginState extends State<login> {
   bool _ispressed = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(0, 0, 0, 50),
-      body: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Color.fromRGBO(0, 0, 0, 120),
-            ),
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 3,
-            child: const Center(
-                child: Icon(
-              Icons.person_pin,
-              size: 120,
-              color: Colors.white60,
-            )),
-          ),
-          Padding(
-            padding:
-                EdgeInsets.only(top: MediaQuery.of(context).size.height / 11),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: const Color.fromRGBO(
-                    0, 0, 0, 120), /*Color.fromARGB(0, 0, 0, 80)*/
-              ),
-              width: MediaQuery.of(context).size.width / 1.40,
-              height: MediaQuery.of(context).size.height / 2,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  const Text(
-                    "Inicie Sesion",
-                    style: TextStyle(
-                        fontFamily: "Minecraft",
-                        fontSize: 28,
-                        color: Colors.white),
+        backgroundColor: const Color.fromRGBO(0, 0, 0, 50),
+        body: ListView(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: const Color.fromRGBO(0, 0, 0, 120),
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 2,
-                    child: Expanded(
-                      child: TextField(
-                        controller: correo,
-                        autocorrect: true,
-                        decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.person),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 2)),
-                            hintStyle: const TextStyle(color: Colors.white),
-                            hintText: "Correo electronico",
-                            labelStyle: const TextStyle(
-                                fontFamily: "Minecraft", fontSize: 16),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 2))),
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontFamily: "Minecraft",
-                            fontSize: 18),
-                        cursorColor: Colors.white,
-                      ),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 3,
+                  child: const Center(
+                      child: Icon(
+                    Icons.person_pin,
+                    size: 120,
+                    color: Colors.white60,
+                  )),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height / 26),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: const Color.fromRGBO(
+                          0, 0, 0, 120), /*Color.fromARGB(0, 0, 0, 80)*/
                     ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 2,
-                    child: Expanded(
-                      child: TextField(
-                        controller: password,
-                        obscureText: true,
-                        autocorrect: true,
-                        decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.security),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 2)),
-                            hintStyle: const TextStyle(color: Colors.white),
-                            hintText: "Contraseña",
-                            labelStyle: const TextStyle(
-                                fontFamily: "Minecraft", fontSize: 16),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 2))),
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontFamily: "Minecraft",
-                            fontSize: 18),
-                        cursorColor: Colors.white,
-                      ),
-                    ),
-                  ),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          fixedSize: Size(150, 80),
-                          side: BorderSide(color: Colors.grey),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          backgroundColor: Color.fromARGB(0, 0, 0, 120)),
-                      onPressed: () {
-                        setState(() {
-                          _buscar(context, correo, password);
-                        });
-                        /*  final supabase = Supabase.instance.client;
+                    width: MediaQuery.of(context).size.width / 1.40,
+                    height: MediaQuery.of(context).size.height / 2,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const Text(
+                          "Inicie Sesion",
+                          style: TextStyle(
+                              fontFamily: "Minecraft",
+                              fontSize: 28,
+                              color: Colors.white),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 1.50,
+                          child: Expanded(
+                            child: TextField(
+                              controller: correo,
+                              autocorrect: true,
+                              decoration: InputDecoration(
+                                  prefixIcon: const Icon(Icons.person),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: const BorderSide(
+                                          color: Colors.white, width: 2)),
+                                  hintStyle:
+                                      const TextStyle(color: Colors.white),
+                                  hintText: "Correo electronico",
+                                  labelStyle: const TextStyle(
+                                      fontFamily: "Minecraft", fontSize: 16),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: const BorderSide(
+                                          color: Colors.white, width: 2))),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: "Minecraft",
+                                  fontSize: 18),
+                              cursorColor: Colors.white,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 1.50,
+                          child: Expanded(
+                            child: TextField(
+                              controller: password,
+                              obscureText: true,
+                              autocorrect: true,
+                              decoration: InputDecoration(
+                                  prefixIcon: const Icon(Icons.security),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: const BorderSide(
+                                          color: Colors.white, width: 2)),
+                                  hintStyle:
+                                      const TextStyle(color: Colors.white),
+                                  hintText: "Contraseña",
+                                  labelStyle: const TextStyle(
+                                      fontFamily: "Minecraft", fontSize: 16),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: const BorderSide(
+                                          color: Colors.white, width: 2))),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: "Minecraft",
+                                  fontSize: 18),
+                              cursorColor: Colors.white,
+                            ),
+                          ),
+                        ),
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                fixedSize: const Size(150, 80),
+                                side: const BorderSide(color: Colors.grey),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                backgroundColor:
+                                    const Color.fromARGB(0, 0, 0, 120)),
+                            onPressed: () {
+                              setState(() {
+                                _buscar(context, correo, password);
+                              });
+                              /*  final supabase = Supabase.instance.client;
                         final _Correo = await supabase
                             .from('usuario')
                             .select()
@@ -168,40 +177,49 @@ class _loginState extends State<login> {
                           debugPrint("Usuario no existeeeee");
                         } */
 
-                        //_buscar(correo.toString(), password.toString());
-                      },
-                      child: const Text(
-                        "Aceptar",
-                        style: TextStyle(color: Colors.white, fontSize: 22),
-                      )),
-                  GestureDetector(
-                    onTapDown: (details) => setState(() {
-                      _ispressed = true;
-                    }),
-                    onTapUp: (details) => setState(() {
-                      _ispressed = false;
-                    }),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => (user())));
-                    },
-                    child: Text(
-                      "No tienes cuenta? registrate aqui",
-                      style: TextStyle(
-                          color: _ispressed ? Colors.grey : Colors.white,
-                          decoration: TextDecoration.underline,
-                          fontFamily: "Minecraft",
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
+                              //_buscar(correo.toString(), password.toString());
+                            },
+                            child: const Text(
+                              "Aceptar",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 22),
+                            )),
+                        GestureDetector(
+                          onTapDown: (details) => setState(() {
+                            _ispressed = true;
+                          }),
+                          onTapUp: (details) => setState(() {
+                            _ispressed = false;
+                          }),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => (const user())));
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                left: MediaQuery.of(context).size.width / 10),
+                            child: Text(
+                              "No tienes cuenta? registrate aqui",
+                              style: TextStyle(
+                                  color:
+                                      _ispressed ? Colors.grey : Colors.white,
+                                  decoration: TextDecoration.underline,
+                                  fontFamily: "Minecraft",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 22),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
-          )
-        ],
-      ),
-    );
+          ],
+        ));
   }
 }
 
@@ -216,7 +234,7 @@ void mensaje(BuildContext context, final mensaje) {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text("Aceptar"))
+              child: const Text("Aceptar"))
         ],
       );
     },
@@ -225,13 +243,14 @@ void mensaje(BuildContext context, final mensaje) {
 
 Future<void> _buscar(BuildContext context, TextEditingController correo,
     TextEditingController password) async {
-  String Mensaje = "";
   final supabase = Supabase.instance.client;
-  final _Correo = await supabase.from('usuario').select();
+  // ignore: non_constant_identifier_names
+  final Correo = await supabase.from('usuario').select();
   int i = 0;
   bool xd = true;
 
-  final usuario = _Correo.toList();
+  final usuario = Correo.toList();
+  // ignore: non_constant_identifier_names
   int id_usuario = 0;
   while (xd == true) {
     try {
@@ -246,16 +265,17 @@ Future<void> _buscar(BuildContext context, TextEditingController correo,
       }
     } catch (e) {
       showDialog(
+        // ignore: use_build_context_synchronously
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("Correo o contraseña incorrectos"),
+            title: const Text("Correo o contraseña incorrectos"),
             actions: [
               TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text("Aceptar"))
+                  child: const Text("Aceptar"))
             ],
           );
         },
